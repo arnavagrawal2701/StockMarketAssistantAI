@@ -1,0 +1,91 @@
+version: "3.10"
+
+services:
+  analysis_service:
+    build:
+      context: .
+      dockerfile: agents_services/analysis_service/Dockerfile
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./agents_services/analysis_service:/app
+    restart: always
+
+  api_service:
+    build:
+      context: .
+      dockerfile: agents_services/api_service/Dockerfile
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./agents_services/api_service:/app
+    restart: always
+
+  earnings_service:
+    build:
+      context: .
+      dockerfile: agents_services/earnings_service/Dockerfile
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./agents_services/earnings_service:/app
+    restart: always
+
+  retriever_service:
+    build:
+      context: .
+      dockerfile: agents_services/retriever_service/Dockerfile
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./agents_services/retriever_service:/app
+    restart: always
+
+  lang_service:
+    build:
+      context: .
+      dockerfile: agents_services/lang_service/Dockerfile
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./agents_services/lang_service:/app
+    restart: always
+
+  voice_service:
+    build:
+      context: .
+      dockerfile: agents_services/voice_service/Dockerfile
+    ports:
+      - "8006:8006"
+    volumes:
+      - ./agents_services/voice_service:/app
+    restart: always
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./orchestrator:/app
+    depends_on:
+      - api_service
+      - earnings_service
+      - analysis_service
+      - retriever_service
+      - lang_service
+      - voice_service
+    restart: always
+
+  streamlit_app:
+    build:
+      context: .
+      dockerfile: streamlit_app/Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit_app:/app
+    depends_on:
+      - orchestrator
+    restart: always
