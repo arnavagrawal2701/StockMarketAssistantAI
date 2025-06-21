@@ -1,4 +1,4 @@
-# StockMarketAgenticAssistant
+# Stock Market Agentic AI Assistant
 
 **StockMarketAgenticAssistant** is a modular AI-driven system designed to interact with financial data through specialized microservices, each functioning as an independent agent. The project demonstrates how agent-based systems can be used to analyze, retrieve, and communicate insights from stock market data using natural language and voice interfaces.
 
