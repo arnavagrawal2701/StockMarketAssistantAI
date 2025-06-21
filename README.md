@@ -1,1 +1,1 @@
-# StockMarketAssistantAI
+# Stock Market AI Assistant
